@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ChangePasswordController;
@@ -35,3 +34,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/student/dashboard',        [StudentDashboard::class,       'index'])->name('student.dashboard');
 
 });
+

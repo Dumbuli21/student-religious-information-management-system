@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SRIMS – Quick Register (Temp)</title>
+    <title>SRIS – Quick Register (Temp)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -28,14 +28,14 @@
     {{-- Success message --}}
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show">
-            <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
+            <i class="bi bi-check-circle me-2"></i> {!! session('success') !!}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
 
     <div class="row g-4">
 
-        {{-- ── Register Form ── --}}
+        {{-- Register Form --}}
         <div class="col-lg-5">
             <div class="card h-100">
                 <div class="card-header py-3">
@@ -55,7 +55,7 @@
                         <div class="mb-3">
                             <label class="form-label fw-semibold small">Full Name <span class="text-danger">*</span></label>
                             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                                value="{{ old('name') }}" placeholder="e.g. Amina Joseph">
+                                   value="{{ old('name') }}" placeholder="e.g. Amina Joseph">
                             @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
 
@@ -63,7 +63,7 @@
                         <div class="mb-3">
                             <label class="form-label fw-semibold small">Student Number <span class="text-danger">*</span></label>
                             <input type="text" name="student_number" class="form-control @error('student_number') is-invalid @enderror"
-                                value="{{ old('student_number') }}" placeholder="e.g. BT25">
+                                   value="{{ old('student_number') }}" placeholder="e.g. BT25001">
                             @error('student_number')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
 
@@ -71,17 +71,29 @@
                         <div class="mb-3">
                             <label class="form-label fw-semibold small">Email <span class="text-danger">*</span></label>
                             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                                value="{{ old('email') }}" placeholder="e.g. amina@sris.com">
+                                   value="{{ old('email') }}" placeholder="e.g. amina@sris.com">
                             @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
 
-                        {{-- Role --}}
+                        {{-- Gender --}}
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Gender <span class="text-danger">*</span></label>
+                            <select name="gender" class="form-select @error('gender') is-invalid @enderror">
+                                <option value="">-- Select Gender --</option>
+                                <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                                <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
+                            </select>
+                            @error('gender')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+
+                        {{-- Role - Default: Student --}}
                         <div class="mb-3">
                             <label class="form-label fw-semibold small">Role <span class="text-danger">*</span></label>
                             <select name="role_id" class="form-select @error('role_id') is-invalid @enderror">
                                 <option value="">-- Select Role --</option>
                                 @foreach($roles as $role)
-                                    <option value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'selected' : '' }}>
+                                    <option value="{{ $role->id }}" 
+                                        {{ old('role_id', $role->name === 'student' ? $role->id : '') == $role->id ? 'selected' : '' }}>
                                         {{ ucwords(str_replace('_', ' ', $role->name)) }}
                                     </option>
                                 @endforeach
@@ -103,31 +115,79 @@
                             @error('religion_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
 
+                        {{-- Academic Information --}}
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Level of Study</label>
+                            <select name="level_id" id="level_id" class="form-select @error('level_id') is-invalid @enderror">
+                                <option value="">-- Select Level --</option>
+                                @foreach($levels as $level)
+                                    <option value="{{ $level->id }}" {{ old('level_id') == $level->id ? 'selected' : '' }}>
+                                        {{ $level->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('level_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Department</label>
+                            <select name="department_id" id="department_id" class="form-select @error('department_id') is-invalid @enderror">
+                                <option value="">-- Select Department --</option>
+                                @foreach($departments as $dept)
+                                    <option value="{{ $dept->id }}" {{ old('department_id') == $dept->id ? 'selected' : '' }}>
+                                        {{ $dept->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('department_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Programme</label>
+                            <select name="programme_id" id="programme_id" class="form-select @error('programme_id') is-invalid @enderror">
+                                <option value="">-- Select Programme --</option>
+                            </select>
+                            @error('programme_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+
+                        {{-- Year of Study - Default: Year 1 --}}
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Year of Study</label>
+                            <select name="year_of_study" class="form-select @error('year_of_study') is-invalid @enderror">
+                                <option value="">-- Select Year --</option>
+                                @for($i = 1; $i <= 4; $i++)
+                                    <option value="{{ $i }}" 
+                                        {{ old('year_of_study', 1) == $i ? 'selected' : '' }}>
+                                        Year {{ $i }}
+                                    </option>
+                                @endfor
+                            </select>
+                            @error('year_of_study')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+
                         {{-- Phone + Region --}}
                         <div class="row g-2 mb-3">
                             <div class="col-6">
                                 <label class="form-label fw-semibold small">Phone</label>
                                 <input type="text" name="phone" class="form-control" value="{{ old('phone') }}" placeholder="07xxxxxxxx">
                             </div>
-                            <div class="col-6">
-                                <label class="form-label fw-semibold small">Region</label>
-                                <input type="text" name="region" class="form-control" value="{{ old('region') }}" placeholder="e.g. Mbeya">
-                            </div>
-                        </div>
+                              <div class="col-6">
+            {{-- ✅ Was a free-text input, now a dropdown --}}
+        <label class="form-label fw-semibold small">Region</label>
+        <select name="region_id" class="form-select @error('region_id') is-invalid @enderror">
+            <option value="">-- Select Region --</option>
+            @foreach($regions as $region)
+                <option value="{{ $region->id }}"
+                    {{ old('region_id') == $region->id ? 'selected' : '' }}>
+                    {{ $region->name }}
+                </option>
+            @endforeach
+        </select>
+        @error('region_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    </div>
+</div>
 
-                        {{-- Course + Year --}}
-                        <div class="row g-2 mb-3">
-                            <div class="col-8">
-                                <label class="form-label fw-semibold small">Course</label>
-                                <input type="text" name="course" class="form-control" value="{{ old('course') }}" placeholder="e.g. Computer Science">
-                            </div>
-                            <div class="col-4">
-                                <label class="form-label fw-semibold small">Year</label>
-                                <input type="number" name="year_of_study" class="form-control" value="{{ old('year_of_study') }}" min="1" max="10" placeholder="1">
-                            </div>
-                        </div>
-
-                        {{-- Password changed flag --}}
+                        {{-- Password Behaviour --}}
                         <div class="mb-4">
                             <label class="form-label fw-semibold small">Login Behaviour <span class="text-danger">*</span></label>
                             <select name="password_changed" class="form-select">
@@ -148,7 +208,7 @@
             </div>
         </div>
 
-        {{-- ── Users Table ── --}}
+        {{-- Users Table --}}
         <div class="col-lg-7">
             <div class="card">
                 <div class="card-header py-3">
@@ -165,71 +225,88 @@
                                     <th>Student No.</th>
                                     <th>Role</th>
                                     <th>Religion</th>
+                                    <th>Academic Info</th>
                                     <th>Pwd Changed</th>
                                     <th>Active</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($users as $u)
-                                    <tr>
-                                        <td class="ps-3">
-                                            <div class="fw-semibold">{{ $u->name }}</div>
-                                            <small class="text-muted">{{ $u->email }}</small>
-                                        </td>
-                                        <td><code>{{ $u->student_number }}</code></td>
-                                        <td>
-                                            <span class="badge bg-primary bg-opacity-10 text-primary" style="font-size:.75rem">
-                                                {{ ucwords(str_replace('_', ' ', $u->role?->name)) }}
-                                            </span>
-                                        </td>
-                                        <td>{{ $u->religion?->name ?? '–' }}</td>
-                                        <td>
-                                            @if($u->password_changed)
-                                                <span class="badge bg-success">Yes</span>
-                                            @else
-                                                <span class="badge bg-warning text-dark">No</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if($u->is_active)
-                                                <span class="badge bg-success">Active</span>
-                                            @else
-                                                <span class="badge bg-danger">Inactive</span>
-                                            @endif
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td class="ps-3">
+                                        <div class="fw-semibold">{{ $u->name }}</div>
+                                        <small class="text-muted">{{ $u->email }}</small>
+                                    </td>
+                                    <td><code>{{ $u->student_number }}</code></td>
+                                    <td>
+                                        <span class="badge bg-primary bg-opacity-10 text-primary" style="font-size:.75rem">
+                                            {{ ucwords(str_replace('_', ' ', $u->role?->name)) }}
+                                        </span>
+                                    </td>
+                                    <td>{{ $u->religion?->name ?? '–' }}</td>
+                                    <td><small class="text-muted">{{ $u->academicInfo() ?? '–' }}</small></td>
+                                    <td>
+                                        @if($u->password_changed)
+                                            <span class="badge bg-success">Yes</span>
+                                        @else
+                                            <span class="badge bg-warning text-dark">No</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($u->is_active)
+                                            <span class="badge bg-success">Active</span>
+                                        @else
+                                            <span class="badge bg-danger">Inactive</span>
+                                        @endif
+                                    </td>
+                                </tr>
                                 @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center text-muted py-4">No users yet.</td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="7" class="text-center text-muted py-4">No users yet.</td>
+                                </tr>
                                 @endforelse
                             </tbody>
                         </table>
                     </div>
-                </div>
-                @if($users->count() > 0)
-                <div class="card-footer bg-white text-muted small py-2 px-3">
-                    All passwords are <strong>must123</strong> unless the user has changed theirs.
-                </div>
-                @endif
-            </div>
-
-            {{-- Login info box --}}
-            <div class="card mt-3">
-                <div class="card-body py-3">
-                    <p class="mb-2 fw-semibold small"><i class="bi bi-info-circle text-primary me-1"></i>How to test login</p>
-                    <ol class="mb-0 small text-muted ps-3">
-                        <li>Go to <a href="{{ route('login') }}">{{ route('login') }}</a></li>
-                        <li>Enter the <strong>Student Number</strong> and password <code>must123</code></li>
-                        <li>If "Force change password" was selected → user lands on <code>/change-password</code></li>
-                        <li>If "Go directly to dashboard" → user lands on their role dashboard</li>
-                    </ol>
                 </div>
             </div>
         </div>
 
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Cascading Dropdown Script for Programme -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const departmentSelect = document.getElementById('department_id');
+        const programmeSelect = document.getElementById('programme_id');
+        const allProgrammes = @json($programmes);
+
+        function filterProgrammes() {
+            const selectedDeptId = departmentSelect.value;
+            programmeSelect.innerHTML = '<option value="">-- Select Programme --</option>';
+
+            if (!selectedDeptId) return;
+
+            const filtered = allProgrammes.filter(prog => prog.department_id == selectedDeptId);
+
+            filtered.forEach(prog => {
+                const option = document.createElement('option');
+                option.value = prog.id;
+                option.textContent = prog.name;
+                if (prog.id == '{{ old('programme_id') }}') {
+                    option.selected = true;
+                }
+                programmeSelect.appendChild(option);
+            });
+        }
+
+        departmentSelect.addEventListener('change', filterProgrammes);
+        filterProgrammes(); // Initial load
+    });
+</script>
+
 </body>
 </html>
