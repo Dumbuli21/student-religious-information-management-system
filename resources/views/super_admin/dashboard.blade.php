@@ -15,83 +15,86 @@
 
     @include('includes.header')
 
-    <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
-        <div class="sidebar-brand">
-            <a href="#" class="brand-link">
-                <span class="brand-text fw-light">SRIMS</span>
-            </a>
-        </div>
-        <div class="sidebar-wrapper">
-            <nav class="mt-2">
-                <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation" data-accordion="false">
-                    <li class="nav-header">SUPER ADMIN</li>
-                    <li class="nav-item">
-                        <a href="{{ route('super_admin.dashboard') }}" class="nav-link active">
-                            <i class="nav-icon bi bi-speedometer2"></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-people"></i>
-                            <p>Users</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-globe2"></i>
-                            <p>Religions</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-box-seam-fill"></i>
-                  <p>
-                    Management
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="./widgets/small-box.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Department</p>
+    <aside class="app-sidebar shadow" style="background: linear-gradient(180deg, #1a3c5e 0%, #2d6a9f 100%);" data-bs-theme="dark">
+    <div class="sidebar-brand">
+        <a href="#" class="brand-link d-flex align-items-center gap-2 py-3 px-3 text-white text-decoration-none">
+            <i class="bi bi-shield-fill-check fs-4"></i>
+            <div class="brand-text-wrapper">
+                <span class="brand-text fw-light fs-5">SRIMS</span>
+            </div>
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <nav class="mt-2">
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation" data-accordion="false">
+                <li class="nav-header text-white-50">SUPER ADMIN</li>
+                <li class="nav-item">
+                    <a href="{{ route('super_admin.dashboard') }}" class="nav-link text-white-75 active" style="color: rgba(255,255,255,.75) !important;">
+                        <i class="nav-icon bi bi-speedometer2"></i>
+                        <p class="nav-text">Dashboard</p>
                     </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./widgets/info-box.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Programme</p>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('super_admin.users.index') }}" class="nav-link text-white-75" style="color: rgba(255,255,255,.75) !important;">
+                        <i class="nav-icon bi bi-people"></i>
+                        <p class="nav-text">Users</p>
                     </a>
-                  </li>
-                </ul>
-              </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-graph-up"></i>
-                            <p>Reports</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-clock-history"></i>
-                            <p>Activity Logs</p>
-                        </a>
-                    </li>
-                    <li class="nav-header">ACCOUNT</li>
-                    <li class="nav-item">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="nav-link w-100 text-start border-0 bg-transparent">
-                                <i class="nav-icon bi bi-box-arrow-right"></i>
-                                <p>Logout</p>
-                            </button>
-                        </form>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </aside>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white-75" style="color: rgba(255,255,255,.75) !important;">
+                        <i class="nav-icon bi bi-globe2"></i>
+                        <p class="nav-text">Religions</p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link text-white-75" style="color: rgba(255,255,255,.75) !important;">
+                        <i class="nav-icon bi bi-box-seam-fill"></i>
+                        <p class="nav-text">
+                            Management
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="./widgets/small-box.html" class="nav-link text-white-75" style="color: rgba(255,255,255,.75) !important;">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p class="nav-text">Department</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./widgets/info-box.html" class="nav-link text-white-75" style="color: rgba(255,255,255,.75) !important;">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p class="nav-text">Programme</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white-75" style="color: rgba(255,255,255,.75) !important;">
+                        <i class="nav-icon bi bi-graph-up"></i>
+                        <p class="nav-text">Reports</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white-75" style="color: rgba(255,255,255,.75) !important;">
+                        <i class="nav-icon bi bi-clock-history"></i>
+                        <p class="nav-text">Activity Logs</p>
+                    </a>
+                </li>
+                <li class="nav-header text-white-50 mt-3">ACCOUNT</li>
+                <li class="nav-item">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="nav-link w-100 text-start border-0 bg-transparent text-white-75" style="color: rgba(255,255,255,.75) !important; padding: .65rem 1.25rem;">
+                            <i class="nav-icon bi bi-box-arrow-right"></i>
+                            <p class="nav-text">Logout</p>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>
 
     <main class="app-main">
         <div class="app-content-header">

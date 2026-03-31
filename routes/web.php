@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ChangePasswordController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\SuperAdmin\DashboardController    as SuperAdminDashboar
 use App\Http\Controllers\ReligiousAdmin\DashboardController as ReligiousAdminDashboard;
 use App\Http\Controllers\SubAdmin\DashboardController      as SubAdminDashboard;
 use App\Http\Controllers\Student\DashboardController       as StudentDashboard;
+use App\Http\Controllers\SuperAdmin\UserController;
 
 // ── Guest only ────────────────────────────────────────────────────────────────
 Route::middleware('guest')->group(function () {
@@ -15,7 +17,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 });
 
-// ── Temp register (delete when done) ─────────────────────────────────────────
+// ── Temp register ─────────────────────────────────────────────────────────────
 Route::get('/register',  [RegisterController::class, 'showForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
@@ -27,11 +29,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/change-password',  [ChangePasswordController::class, 'showChangeForm'])->name('password.change.form');
     Route::post('/change-password', [ChangePasswordController::class, 'changePassword'])->name('password.change');
 
-    // Dashboards — only Laravel built-in 'auth' middleware, role checked inside controller
-    Route::get('/super-admin/dashboard',    [SuperAdminDashboard::class,    'index'])->name('super_admin.dashboard');
-    Route::get('/religious-admin/dashboard',[ReligiousAdminDashboard::class,'index'])->name('religious_admin.dashboard');
-    Route::get('/sub-admin/dashboard',      [SubAdminDashboard::class,      'index'])->name('sub_admin.dashboard');
-    Route::get('/student/dashboard',        [StudentDashboard::class,       'index'])->name('student.dashboard');
+    // ── Dashboards ────────────────────────────────────────────────────────────
+    Route::get('/super-admin/dashboard',     [SuperAdminDashboard::class,     'index'])->name('super_admin.dashboard');
+    Route::get('/religious-admin/dashboard', [ReligiousAdminDashboard::class, 'index'])->name('religious_admin.dashboard');
+    Route::get('/sub-admin/dashboard',       [SubAdminDashboard::class,       'index'])->name('sub_admin.dashboard');
+    Route::get('/student/dashboard',         [StudentDashboard::class,        'index'])->name('student.dashboard');
+
+    // ── Super Admin ───────────────────────────────────────────────────────────
+    Route::prefix('super-admin')->name('super_admin.')->group(function () {
+        Route::resource('users', UserController::class)->except(['create', 'edit']);
+        Route::post('users/{user}/reset-password', [UserController::class, 'resetPassword'])
+             ->name('users.reset-password');
+    });
 
 });
-
