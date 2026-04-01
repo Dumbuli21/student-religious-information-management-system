@@ -194,13 +194,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link text-white-75 active">
+                        <a href="{{ route('super_admin.users.index') }}"  class="nav-link text-white-75 active">
                             <i class="nav-icon bi bi-people"></i>
                             <p class="nav-text">Users</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link text-white-75">
+                        <a href="{{ route('super_admin.religions.index') }}" class="nav-link text-white-75">
                             <i class="nav-icon bi bi-globe2"></i>
                             <p class="nav-text">Religions</p>
                         </a>
@@ -213,13 +213,13 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="#" class="nav-link text-white-75">
-                                    <i class="nav-icon bi bi-circle"></i>
+                                    <i class="nav-icon bi bi-building"></i>
                                     <p class="nav-text">Department</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link text-white-75">
-                                    <i class="nav-icon bi bi-circle"></i>
+                                    <i class="nav-icon bi bi-journal-bookmark-fill"></i>
                                     <p class="nav-text">Programme</p>
                                 </a>
                             </li>
@@ -236,16 +236,6 @@
                             <i class="nav-icon bi bi-clock-history"></i>
                             <p class="nav-text">Activity Logs</p>
                         </a>
-                    </li>
-                    <li class="nav-header text-white-50 mt-3">ACCOUNT</li>
-                    <li class="nav-item">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="nav-link w-100 text-start border-0 bg-transparent text-white-75">
-                                <i class="nav-icon bi bi-box-arrow-right"></i>
-                                <p class="nav-text">Logout</p>
-                            </button>
-                        </form>
                     </li>
                 </ul>
             </nav>

@@ -9,6 +9,10 @@ use App\Http\Controllers\ReligiousAdmin\DashboardController as ReligiousAdminDas
 use App\Http\Controllers\SubAdmin\DashboardController      as SubAdminDashboard;
 use App\Http\Controllers\Student\DashboardController       as StudentDashboard;
 use App\Http\Controllers\SuperAdmin\UserController;
+use App\Http\Controllers\SuperAdmin\ReligionController;
+use App\Http\Controllers\SuperAdmin\DepartmentController;
+use App\Http\Controllers\SuperAdmin\ProgrammeController;
+
 
 // ── Guest only ────────────────────────────────────────────────────────────────
 Route::middleware('guest')->group(function () {
@@ -40,6 +44,18 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', UserController::class)->except(['create', 'edit']);
         Route::post('users/{user}/reset-password', [UserController::class, 'resetPassword'])
              ->name('users.reset-password');
+
+    Route::resource('religions', ReligionController::class)->except(['create', 'edit']);
+    Route::post('religions/{religion}/toggle-status', [ReligionController::class, 'toggleStatus'])
+         ->name('religions.toggle-status');
+
+    Route::resource('departments', DepartmentController::class)->except(['create', 'edit']);
+    Route::resource('programmes',  ProgrammeController::class)->except(['create', 'edit']);
+
     });
 
+
+    
+
+    
 });

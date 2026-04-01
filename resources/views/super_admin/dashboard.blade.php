@@ -41,7 +41,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-white-75" style="color: rgba(255,255,255,.75) !important;">
+                    <a href="{{ route('super_admin.religions.index') }}"  class="nav-link text-white-75" style="color: rgba(255,255,255,.75) !important;">
                         <i class="nav-icon bi bi-globe2"></i>
                         <p class="nav-text">Religions</p>
                     </a>
@@ -56,14 +56,14 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="./widgets/small-box.html" class="nav-link text-white-75" style="color: rgba(255,255,255,.75) !important;">
-                                <i class="nav-icon bi bi-circle"></i>
+                            <a href="{{ route('super_admin.departments.index') }}" class="nav-link text-white-75" style="color: rgba(255,255,255,.75) !important;">
+                                <i class="nav-icon bi bi-building"></i>
                                 <p class="nav-text">Department</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./widgets/info-box.html" class="nav-link text-white-75" style="color: rgba(255,255,255,.75) !important;">
-                                <i class="nav-icon bi bi-circle"></i>
+                            <a href="{{ route('super_admin.programmes.index') }}" class="nav-link text-white-75" style="color: rgba(255,255,255,.75) !important;">
+                                <i class="nav-icon bi bi-journal-bookmark-fill"></i>
                                 <p class="nav-text">Programme</p>
                             </a>
                         </li>
@@ -80,16 +80,6 @@
                         <i class="nav-icon bi bi-clock-history"></i>
                         <p class="nav-text">Activity Logs</p>
                     </a>
-                </li>
-                <li class="nav-header text-white-50 mt-3">ACCOUNT</li>
-                <li class="nav-item">
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="nav-link w-100 text-start border-0 bg-transparent text-white-75" style="color: rgba(255,255,255,.75) !important; padding: .65rem 1.25rem;">
-                            <i class="nav-icon bi bi-box-arrow-right"></i>
-                            <p class="nav-text">Logout</p>
-                        </button>
-                    </form>
                 </li>
             </ul>
         </nav>
