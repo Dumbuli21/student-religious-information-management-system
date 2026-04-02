@@ -2,17 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Event extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
-        'religion_id', 'title', 'description', 'start_date', 'end_date',
-        'location', 'max_participants', 'status', 'created_by'
+        'religion_id', 'title', 'description',
+        'start_date', 'end_date', 'location',
+        'max_participants', 'status', 'created_by',
+    ];
+
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date'   => 'datetime',
     ];
 
     public function religion()
@@ -20,7 +25,7 @@ class Event extends Model
         return $this->belongsTo(Religion::class);
     }
 
-    public function createdBy()
+    public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
     }
