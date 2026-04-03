@@ -2,14 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class EventRegistration extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'event_id', 'user_id', 'registered_at',
+        'attended', 'attended_at', 'marked_by',
+    ];
 
-    protected $fillable = ['event_id', 'user_id', 'registered_at', 'attended', 'attended_at', 'marked_by'];
+    protected $casts = [
+        'registered_at' => 'datetime',
+        'attended_at'   => 'datetime',
+        'attended'      => 'boolean',
+    ];
 
     public function event()
     {

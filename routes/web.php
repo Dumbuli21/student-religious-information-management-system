@@ -16,9 +16,12 @@ use App\Http\Controllers\ReligiousAdmin\AnnouncementController;
 use App\Http\Controllers\ReligiousAdmin\EventController;
 use App\Http\Controllers\ReligiousAdmin\MemberController;
 use App\Http\Controllers\ReligiousAdmin\FeedbackController;
-
 use App\Http\Controllers\SubAdmin\AnnouncementController as SubAdminAnnouncementController;
 use App\Http\Controllers\SubAdmin\EventController as SubAdminEventController;
+
+use App\Http\Controllers\Student\AnnouncementController as StudentAnnouncementController;
+use App\Http\Controllers\Student\EventController as StudentEventController;
+use App\Http\Controllers\Student\FeedbackController as StudentFeedbackController;
 
 
 
@@ -66,6 +69,33 @@ Route::middleware('auth')->group(function () {
 
 
 
+// Inside Route::middleware('auth')->group(function () {
+
+    // ── Student ───────────────────────────────────────────────────────────────
+    Route::prefix('student')->name('student.')->group(function () {
+
+        Route::get('dashboard', [StudentDashboard::class, 'index'])->name('dashboard');
+
+        Route::get('announcements',          [StudentAnnouncementController::class, 'index'])->name('announcements.index');
+        Route::get('announcements/{announcement}', [StudentAnnouncementController::class, 'show'])->name('announcements.show');
+
+        Route::get('events',                 [StudentEventController::class, 'index'])->name('events.index');
+        Route::get('events/{event}',         [StudentEventController::class, 'show'])->name('events.show');
+        Route::post('events/{event}/register', [StudentEventController::class, 'register'])->name('events.register');
+        Route::post('events/{event}/unregister', [StudentEventController::class, 'unregister'])->name('events.unregister');
+
+        Route::get('feedback',               [StudentFeedbackController::class, 'index'])->name('feedback.index');
+        Route::post('feedback',              [StudentFeedbackController::class, 'store'])->name('feedback.store');
+        Route::delete('feedback/{feedback}', [StudentFeedbackController::class, 'destroy'])->name('feedback.destroy');
+    });
+
+
+
+
+
+
+
+
     // ── Super Admin ───────────────────────────────────────────────────────────
     Route::prefix('super-admin')->name('super_admin.')->group(function () {
         Route::resource('users', UserController::class)->except(['create', 'edit']);
@@ -107,6 +137,8 @@ Route::prefix('religious-admin')->name('religious_admin.')->group(function () {
          ->name('feedback.update-status');
 
 });
+
+
 
 
 
