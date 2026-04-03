@@ -8,23 +8,45 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/styles/overlayscrollbars.min.css" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" crossorigin="anonymous"/>
     <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}"/>
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"/>
     <style>
-        .card { border: none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,.07); }
-        .card-header { border-radius: 12px 12px 0 0 !important; background: linear-gradient(135deg, #1a3c5e, #2d6a9f); color: white; }
-        .modal-header { background: linear-gradient(135deg,#1a3c5e,#2d6a9f); color: white; border-radius: 12px 12px 0 0 !important; }
-        .modal-header .btn-close { filter: brightness(0) invert(1); }
-        .modal-content { border: none; border-radius: 12px; }
-        .table th { font-size: .8rem; text-transform: uppercase; letter-spacing: .5px; color: #6c757d; }
-        .info-label { font-size: .75rem; text-transform: uppercase; letter-spacing: .5px; color: #6c757d; margin-bottom: 2px; }
+        .card { border:none; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,.07); }
+        .card-header { border-radius:12px 12px 0 0 !important; background: linear-gradient(135deg, #1a3c5e, #2d6a9f); color: white; }
+        .modal-header { background:linear-gradient(135deg,#1a3c5e,#2d6a9f); color:white; border-radius:12px 12px 0 0 !important; }
+        .modal-header .btn-close { filter:brightness(0) invert(1); }
+        .modal-content { border:none; border-radius:12px; }
+        .table th { font-size:.8rem; text-transform:uppercase; letter-spacing:.5px; color:#6c757d; }
+        .info-label { font-size:.75rem; text-transform:uppercase; letter-spacing:.5px; color:#6c757d; margin-bottom:2px; }
+        .btn-primary {
+            background: linear-gradient(135deg, #1a3c5e, #2d6a9f);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2d6a9f, #1a3c5e);
+        }
+        .btn-outline-primary {
+            color: #1a3c5e;
+            border-color: #1a3c5e;
+        }
+        .btn-outline-primary:hover {
+            background: linear-gradient(135deg, #1a3c5e, #2d6a9f);
+            border-color: transparent;
+        }
+        .badge.bg-primary {
+            background: linear-gradient(135deg, #1a3c5e, #2d6a9f);
+        }
+        .pagination .page-item.active .page-link {
+            background: linear-gradient(135deg, #1a3c5e, #2d6a9f);
+            border-color: #1a3c5e;
+        }
+        .pagination .page-link {
+            color: #1a3c5e;
+        }
+        .pagination .page-link:hover {
+            color: #2d6a9f;
+        }
         
         /* DataTables Custom Styles */
-        .dataTables_wrapper .dataTables_paginate .paginate_button {
-            padding: 0.375rem 0.75rem;
-            margin-left: 0;
-            border-radius: 0.375rem;
-        }
         .dataTables_wrapper .dataTables_paginate .paginate_button.current {
             background: linear-gradient(135deg, #1a3c5e, #2d6a9f);
             color: white !important;
@@ -32,50 +54,27 @@
         }
         .dataTables_wrapper .dataTables_filter input {
             border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 8px 12px;
+            border-radius: 4px;
+            padding: 6px 12px;
         }
         .dataTables_wrapper .dataTables_length select {
             border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 8px 12px;
+            border-radius: 4px;
+            padding: 6px 12px;
         }
-        
-        /* Action Buttons */
-        .action-btn {
-            width: 32px;
-            height: 32px;
-            padding: 0;
-            border-radius: 10px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            border: none;
-        }
-        .action-btn-view { background: #eef2ff; color: #3b82f6; }
-        .action-btn-view:hover { background: #3b82f6; color: white; transform: translateY(-2px); }
-        .action-btn-edit { background: #fef3c7; color: #f59e0b; }
-        .action-btn-edit:hover { background: #f59e0b; color: white; transform: translateY(-2px); }
-        .action-btn-delete { background: #fee2e2; color: #ef4444; }
-        .action-btn-delete:hover { background: #ef4444; color: white; transform: translateY(-2px); }
         
         /* Add Button */
         .btn-add-event {
             background: linear-gradient(135deg, #1a3c5e, #2d6a9f);
             color: white;
-            border-radius: 14px;
-            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            padding: 0.5rem 1.25rem;
             font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(26,60,94,0.2);
             border: none;
         }
-        .btn-add-event:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(26,60,94,0.3); color: white; }
-        
-        /* Badge primary */
-        .badge.bg-primary {
-            background: linear-gradient(135deg, #1a3c5e, #2d6a9f);
+        .btn-add-event:hover { 
+            background: linear-gradient(135deg, #2d6a9f, #1a3c5e);
+            color: white; 
         }
     </style>
 </head>
@@ -83,7 +82,7 @@
 <div class="app-wrapper">
 
     @include('includes.header')
-    @include('includes.religious_admin_sidebar')
+    @include('includes.sub_admin_sidebar')
 
     <main class="app-main">
         <div class="app-content-header">
@@ -110,18 +109,17 @@
         <div class="app-content">
             <div class="container-fluid">
 
-                {{-- Header --}}
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
                         <h5 class="fw-bold mb-0">All Events</h5>
                         <small class="text-muted">Manage events for {{ $religion->name }}</small>
                     </div>
-                    <button class="btn btn-add-event" data-bs-toggle="modal" data-bs-target="#createModal">
+                    <button class="btn btn-add-event"
+                            data-bs-toggle="modal" data-bs-target="#createModal">
                         <i class="bi bi-plus-circle me-2"></i>New Event
                     </button>
                 </div>
 
-                {{-- Alerts --}}
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show">
                         <i class="bi bi-check-circle me-2"></i> {!! session('success') !!}
@@ -138,17 +136,17 @@
                 {{-- Stats --}}
                 <div class="row g-3 mb-4">
                     @foreach([
-                        ['label' => 'Total',     'key' => 'total',     'color' => '#0d6efd', 'icon' => 'bi-calendar-fill'],
-                        ['label' => 'Upcoming',  'key' => 'upcoming',  'color' => '#0dcaf0', 'icon' => 'bi-calendar-plus'],
-                        ['label' => 'Ongoing',   'key' => 'ongoing',   'color' => '#198754', 'icon' => 'bi-calendar-check'],
-                        ['label' => 'Completed', 'key' => 'completed', 'color' => '#6c757d', 'icon' => 'bi-calendar2-check'],
-                        ['label' => 'Cancelled', 'key' => 'cancelled', 'color' => '#dc3545', 'icon' => 'bi-calendar-x'],
+                        ['label'=>'Total',     'key'=>'total',     'color'=>'#0d6efd', 'icon'=>'bi-calendar-fill'],
+                        ['label'=>'Upcoming',  'key'=>'upcoming',  'color'=>'#0dcaf0', 'icon'=>'bi-calendar-plus'],
+                        ['label'=>'Ongoing',   'key'=>'ongoing',   'color'=>'#198754', 'icon'=>'bi-calendar-check'],
+                        ['label'=>'Completed', 'key'=>'completed', 'color'=>'#6c757d', 'icon'=>'bi-calendar2-check'],
+                        ['label'=>'Cancelled', 'key'=>'cancelled', 'color'=>'#dc3545', 'icon'=>'bi-calendar-x'],
                     ] as $stat)
                     <div class="col-6 col-md">
                         <div class="card p-3">
                             <div class="d-flex align-items-center gap-2">
                                 <div style="width:36px;height:36px;border-radius:50%;background:{{ $stat['color'] }};
-                                            display:flex;align-items:center;justify-content:center;color:white;font-size:.9rem;">
+                                            display:flex;align-items:center;justify-content:center;color:white;">
                                     <i class="bi {{ $stat['icon'] }}"></i>
                                 </div>
                                 <div>
@@ -161,7 +159,7 @@
                     @endforeach
                 </div>
 
-                {{-- Table --}}
+                {{-- Table with DataTables --}}
                 <div class="card">
                     <div class="card-header py-3 fw-bold">
                         <i class="bi bi-calendar-event me-2"></i>Events List
@@ -177,7 +175,6 @@
                                         <th>Location</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
-                                        <th>Participants</th>
                                         <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
@@ -200,8 +197,7 @@
                                         <td class="fw-semibold">{{ $event->title }}</td>
                                         <td>
                                             <small class="text-muted">
-                                                <i class="bi bi-geo-alt me-1"></i>
-                                                {{ $event->location ?? 'TBD' }}
+                                                <i class="bi bi-geo-alt me-1"></i>{{ $event->location ?? 'TBD' }}
                                             </small>
                                         </td>
                                         <td>
@@ -209,11 +205,6 @@
                                         </td>
                                         <td>
                                             <small>{{ \Carbon\Carbon::parse($event->end_date)->format('d M Y, H:i') }}</small>
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-info bg-opacity-10 text-info">
-                                                {{ $event->max_participants ?? 'Unlimited' }}
-                                            </span>
                                         </td>
                                         <td>
                                             @if($event->status == 'upcoming')
@@ -228,15 +219,15 @@
                                         </td>
                                         <td>
                                             <div class="d-flex gap-1">
-                                                <button class="action-btn action-btn-view" title="View"
+                                                <button class="btn btn-sm btn-outline-info" title="View"
                                                         onclick="openViewModal({{ $event->id }})">
                                                     <i class="bi bi-eye"></i>
                                                 </button>
-                                                <button class="action-btn action-btn-edit" title="Edit"
+                                                <button class="btn btn-sm btn-outline-warning" title="Edit"
                                                         onclick="openEditModal({{ $event->id }})">
                                                     <i class="bi bi-pencil"></i>
                                                 </button>
-                                                <button class="action-btn action-btn-delete" title="Delete"
+                                                <button class="btn btn-sm btn-outline-danger" title="Delete"
                                                         onclick="openDeleteModal({{ $event->id }}, '{{ addslashes($event->title) }}')">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
@@ -245,7 +236,7 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="8" class="text-center text-muted py-5">
+                                        <td colspan="7" class="text-center text-muted py-5">
                                             <i class="bi bi-calendar-x fs-1 d-block mb-2 opacity-25"></i>
                                             No events yet.
                                         </td>
@@ -256,66 +247,67 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </main>
-
     @include('includes.footer')
 </div>
 
-{{-- MODALS (Keep exactly as original) --}}
-<!-- Create Modal -->
+{{-- CREATE --}}
 <div class="modal fade" id="createModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title fw-bold">
-                    <i class="bi bi-plus-circle me-2"></i>New Event
-                </h6>
+                <h6 class="modal-title fw-bold"><i class="bi bi-plus-circle me-2"></i>New Event</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form method="POST" action="{{ route('religious_admin.events.store') }}">
+            <form method="POST" action="{{ route('sub_admin.events.store') }}">
                 @csrf
                 <div class="modal-body">
                     <div class="row g-3">
                         <div class="col-12">
                             <label class="form-label fw-semibold small">Title <span class="text-danger">*</span></label>
-                            <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="Event title">
+                            <input type="text" name="title"
+                                   class="form-control @error('title') is-invalid @enderror"
+                                   value="{{ old('title') }}" placeholder="Event title">
                             @error('title')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
                         <div class="col-12">
                             <label class="form-label fw-semibold small">Description</label>
-                            <textarea name="description" rows="3" class="form-control @error('description') is-invalid @enderror" placeholder="Event description (optional)">{{ old('description') }}</textarea>
-                            @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            <textarea name="description" rows="3" class="form-control"
+                                      placeholder="Optional description">{{ old('description') }}</textarea>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold small">Start Date & Time <span class="text-danger">*</span></label>
-                            <input type="datetime-local" name="start_date" class="form-control @error('start_date') is-invalid @enderror" value="{{ old('start_date') }}">
+                            <input type="datetime-local" name="start_date"
+                                   class="form-control @error('start_date') is-invalid @enderror"
+                                   value="{{ old('start_date') }}">
                             @error('start_date')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold small">End Date & Time <span class="text-danger">*</span></label>
-                            <input type="datetime-local" name="end_date" class="form-control @error('end_date') is-invalid @enderror" value="{{ old('end_date') }}">
+                            <input type="datetime-local" name="end_date"
+                                   class="form-control @error('end_date') is-invalid @enderror"
+                                   value="{{ old('end_date') }}">
                             @error('end_date')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold small">Location</label>
-                            <input type="text" name="location" class="form-control @error('location') is-invalid @enderror" value="{{ old('location') }}" placeholder="e.g. Main Hall, Room 101">
-                            @error('location')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            <input type="text" name="location" class="form-control"
+                                   value="{{ old('location') }}" placeholder="e.g. Main Hall">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold small">Max Participants</label>
-                            <input type="number" name="max_participants" class="form-control @error('max_participants') is-invalid @enderror" value="{{ old('max_participants') }}" placeholder="Leave empty for unlimited" min="1">
-                            @error('max_participants')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            <input type="number" name="max_participants" class="form-control"
+                                   value="{{ old('max_participants') }}" min="1" placeholder="Unlimited">
                         </div>
                         <div class="col-12">
                             <label class="form-label fw-semibold small">Status <span class="text-danger">*</span></label>
                             <select name="status" class="form-select @error('status') is-invalid @enderror">
-                                <option value="upcoming"  {{ old('status', 'upcoming') == 'upcoming'  ? 'selected' : '' }}>Upcoming</option>
-                                <option value="ongoing"   {{ old('status') == 'ongoing'   ? 'selected' : '' }}>Ongoing</option>
-                                <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>Completed</option>
-                                <option value="cancelled" {{ old('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                                <option value="upcoming"  {{ old('status','upcoming') == 'upcoming'  ? 'selected':'' }}>Upcoming</option>
+                                <option value="ongoing"   {{ old('status') == 'ongoing'   ? 'selected':'' }}>Ongoing</option>
+                                <option value="completed" {{ old('status') == 'completed' ? 'selected':'' }}>Completed</option>
+                                <option value="cancelled" {{ old('status') == 'cancelled' ? 'selected':'' }}>Cancelled</option>
                             </select>
                             @error('status')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
@@ -332,14 +324,12 @@
     </div>
 </div>
 
-<!-- View Modal -->
+{{-- VIEW --}}
 <div class="modal fade" id="viewModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title fw-bold">
-                    <i class="bi bi-calendar-event me-2"></i>Event Details
-                </h6>
+                <h6 class="modal-title fw-bold"><i class="bi bi-calendar-event me-2"></i>Event Details</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body" id="viewModalBody">
@@ -355,14 +345,12 @@
     </div>
 </div>
 
-<!-- Edit Modal -->
+{{-- EDIT --}}
 <div class="modal fade" id="editModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title fw-bold">
-                    <i class="bi bi-pencil me-2"></i>Edit Event
-                </h6>
+                <h6 class="modal-title fw-bold"><i class="bi bi-pencil me-2"></i>Edit Event</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body" id="editModalBody">
@@ -372,7 +360,7 @@
     </div>
 </div>
 
-<!-- Delete Modal -->
+{{-- DELETE --}}
 <div class="modal fade" id="deleteModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -414,14 +402,11 @@
 <script>
 const csrfToken = '{{ csrf_token() }}';
 const routes = {
-    show:    '{{ route('religious_admin.events.show',   '__ID__') }}',
-    update:  '{{ route('religious_admin.events.update', '__ID__') }}',
-    destroy: '{{ route('religious_admin.events.destroy','__ID__') }}',
+    show:    '{{ route('sub_admin.events.show',   '__ID__') }}',
+    update:  '{{ route('sub_admin.events.update', '__ID__') }}',
+    destroy: '{{ route('sub_admin.events.destroy','__ID__') }}',
 };
-
-function routeFor(name, id) {
-    return routes[name].replace('__ID__', id);
-}
+function routeFor(name, id) { return routes[name].replace('__ID__', id); }
 
 // DataTable Initialization
 $(document).ready(function() {
@@ -431,32 +416,17 @@ $(document).ready(function() {
         ordering: true,
         info: true,
         lengthChange: true,
-        pageLength: 15,
-        lengthMenu: [[10, 15, 25, 50, 100, -1], [10, 15, 25, 50, 100, "All"]],
-        autoWidth: false,
+        pageLength: 10,
+        lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
         language: {
             paginate: {
-                first: "« First",
-                previous: "‹ Prev",
-                next: "Next ›",
-                last: "Last »"
+                previous: "Previous",
+                next: "Next"
             },
             search: "Search:",
             lengthMenu: "Show _MENU_ entries",
-            info: "Showing _START_ to _END_ of _TOTAL_ entries",
-            infoEmpty: "Showing 0 to 0 of 0 entries",
-            infoFiltered: "(filtered from _MAX_ total entries)"
-        },
-        columnDefs: [
-            { targets: 0, orderable: true },
-            { targets: 1, orderable: true },
-            { targets: 2, orderable: true },
-            { targets: 3, orderable: true },
-            { targets: 4, orderable: true },
-            { targets: 5, orderable: false },
-            { targets: 6, orderable: true },
-            { targets: 7, orderable: false }
-        ]
+            info: "Showing _START_ to _END_ of _TOTAL_ entries"
+        }
     });
 });
 
@@ -464,95 +434,62 @@ document.addEventListener('DOMContentLoaded', function () {
     @if($errors->any())
         new bootstrap.Modal(document.getElementById('createModal')).show();
     @endif
-
-    const sidebarWrapper = document.querySelector('.sidebar-wrapper');
-    if (sidebarWrapper && OverlayScrollbarsGlobal?.OverlayScrollbars !== undefined && window.innerWidth > 992) {
-        OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
-            scrollbars: { theme: 'os-theme-light', autoHide: 'leave', clickScroll: true },
-        });
+    const sw = document.querySelector('.sidebar-wrapper');
+    if (sw && OverlayScrollbarsGlobal?.OverlayScrollbars !== undefined && window.innerWidth > 992) {
+        OverlayScrollbarsGlobal.OverlayScrollbars(sw, { scrollbars: { theme:'os-theme-light', autoHide:'leave', clickScroll:true } });
     }
 });
 
-// View Modal
 function openViewModal(id) {
     const modal = new bootstrap.Modal(document.getElementById('viewModal'));
     document.getElementById('viewModalBody').innerHTML =
         `<div class="text-center py-5"><div class="spinner-border text-primary"></div></div>`;
     modal.show();
-
-    fetch(routeFor('show', id), { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
-    .then(r => r.json())
+    fetch(routeFor('show', id), { headers: { 'X-Requested-With':'XMLHttpRequest', 'Accept':'application/json' } })
+    .then(r => { if (!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
     .then(e => {
         document.getElementById('viewModalBody').innerHTML = `
-            <div class="mb-3">
-                <div class="info-label">Title</div>
-                <h5 class="fw-bold">${e.title}</h5>
-            </div>
-            ${e.description ? `
-            <div class="mb-3">
-                <div class="info-label">Description</div>
-                <div class="p-3 bg-light rounded">${e.description}</div>
-            </div>` : ''}
+            <div class="mb-3"><div class="info-label">Title</div><h5 class="fw-bold">${e.title}</h5></div>
+            ${e.description ? `<div class="mb-3"><div class="info-label">Description</div>
+                <div class="p-3 bg-light rounded">${e.description}</div></div>` : ''}
             <div class="row g-3">
-                <div class="col-sm-6">
-                    <div class="info-label">Start Date</div>
-                    <div>${e.start_date_fmt}</div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="info-label">End Date</div>
-                    <div>${e.end_date_fmt}</div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="info-label">Location</div>
-                    <div>${e.location ?? 'TBD'}</div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="info-label">Max Participants</div>
-                    <div>${e.max_participants ?? 'Unlimited'}</div>
-                </div>
+                <div class="col-sm-6"><div class="info-label">Start Date</div><div>${e.start_date_fmt}</div></div>
+                <div class="col-sm-6"><div class="info-label">End Date</div><div>${e.end_date_fmt}</div></div>
+                <div class="col-sm-6"><div class="info-label">Location</div><div>${e.location ?? 'TBD'}</div></div>
+                <div class="col-sm-6"><div class="info-label">Max Participants</div><div>${e.max_participants ?? 'Unlimited'}</div></div>
                 <div class="col-sm-6">
                     <div class="info-label">Status</div>
-                    <span class="badge" style="background: linear-gradient(135deg, #1a3c5e, #2d6a9f);">${e.status.charAt(0).toUpperCase() + e.status.slice(1)}</span>
+                    <span class="badge" style="background: linear-gradient(135deg, #1a3c5e, #2d6a9f);">${e.status.charAt(0).toUpperCase()+e.status.slice(1)}</span>
                 </div>
-                <div class="col-sm-6">
-                    <div class="info-label">Created By</div>
-                    <div>${e.creator_name}</div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="info-label">Created</div>
-                    <div>${e.created_at}</div>
-                </div>
+                <div class="col-sm-6"><div class="info-label">Created By</div><div>${e.creator_name}</div></div>
+                <div class="col-sm-6"><div class="info-label">Created</div><div>${e.created_at}</div></div>
             </div>`;
-
         document.getElementById('viewToEditBtn').onclick = () => {
             bootstrap.Modal.getInstance(document.getElementById('viewModal')).hide();
             setTimeout(() => openEditModal(id), 350);
         };
     })
-    .catch(() => {
+    .catch(err => {
         document.getElementById('viewModalBody').innerHTML =
-            `<div class="alert alert-danger">Failed to load data.</div>`;
+            `<div class="alert alert-danger m-3"><i class="bi bi-x-circle me-2"></i>Failed to load. (${err.message})</div>`;
     });
 }
 
-// Edit Modal
 function openEditModal(id) {
     const modal = new bootstrap.Modal(document.getElementById('editModal'));
     document.getElementById('editModalBody').innerHTML =
         `<div class="text-center py-5"><div class="spinner-border text-primary"></div></div>`;
     modal.show();
-
-    fetch(routeFor('show', id), { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
-    .then(r => r.json())
+    fetch(routeFor('show', id), { headers: { 'X-Requested-With':'XMLHttpRequest', 'Accept':'application/json' } })
+    .then(r => { if (!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
     .then(e => {
         const statusOpts = ['upcoming','ongoing','completed','cancelled'].map(s =>
-            `<option value="${s}" ${e.status === s ? 'selected' : ''}>${s.charAt(0).toUpperCase() + s.slice(1)}</option>`
+            `<option value="${s}" ${e.status===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`
         ).join('');
-
         document.getElementById('editModalBody').innerHTML = `
             <form method="POST" action="${routeFor('update', e.id)}">
                 <input type="hidden" name="_method" value="PUT">
-                <input type="hidden" name="_token"  value="${csrfToken}">
+                <input type="hidden" name="_token" value="${csrfToken}">
                 <div class="row g-3">
                     <div class="col-12">
                         <label class="form-label fw-semibold small">Title <span class="text-danger">*</span></label>
@@ -596,19 +533,17 @@ function openEditModal(id) {
                 </div>
             </form>`;
     })
-    .catch(() => {
+    .catch(err => {
         document.getElementById('editModalBody').innerHTML =
-            `<div class="alert alert-danger">Failed to load data.</div>`;
+            `<div class="alert alert-danger m-3"><i class="bi bi-x-circle me-2"></i>Failed to load. (${err.message})</div>`;
     });
 }
 
-// Delete Modal
 function openDeleteModal(id, title) {
     document.getElementById('deleteEventTitle').textContent = title;
     document.getElementById('deleteForm').action = routeFor('destroy', id);
     new bootstrap.Modal(document.getElementById('deleteModal')).show();
 }
-
 </script>
 </body>
 </html>

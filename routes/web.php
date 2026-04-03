@@ -17,6 +17,9 @@ use App\Http\Controllers\ReligiousAdmin\EventController;
 use App\Http\Controllers\ReligiousAdmin\MemberController;
 use App\Http\Controllers\ReligiousAdmin\FeedbackController;
 
+use App\Http\Controllers\SubAdmin\AnnouncementController as SubAdminAnnouncementController;
+use App\Http\Controllers\SubAdmin\EventController as SubAdminEventController;
+
 
 
 
@@ -44,6 +47,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/religious-admin/dashboard', [ReligiousAdminDashboard::class, 'index'])->name('religious_admin.dashboard');
     Route::get('/sub-admin/dashboard',       [SubAdminDashboard::class,       'index'])->name('sub_admin.dashboard');
     Route::get('/student/dashboard',         [StudentDashboard::class,        'index'])->name('student.dashboard');
+
+
+
+    // ── Sub Admin ─────────────────────────────────────────────────────────────
+    Route::prefix('sub-admin')->name('sub_admin.')->group(function () {
+
+        Route::resource('announcements', SubAdminAnnouncementController::class)->except(['create', 'edit']);
+        Route::post('announcements/{announcement}/toggle-publish', [SubAdminAnnouncementController::class, 'togglePublish'])
+             ->name('announcements.toggle-publish');
+
+        Route::resource('events', SubAdminEventController::class)->except(['create', 'edit']);
+        Route::post('events/{event}/toggle-status', [SubAdminEventController::class, 'toggleStatus'])
+             ->name('events.toggle-status');
+
+
+    });
+
+
 
     // ── Super Admin ───────────────────────────────────────────────────────────
     Route::prefix('super-admin')->name('super_admin.')->group(function () {
@@ -87,11 +108,7 @@ Route::prefix('religious-admin')->name('religious_admin.')->group(function () {
 
 });
 
-    
 
-// inside Route::prefix('religious-admin')->name('religious_admin.')->group(function () {
-
-   
 
     
 });
