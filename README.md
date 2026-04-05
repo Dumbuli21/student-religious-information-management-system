@@ -1,47 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #1a3c5e;
-        }
-        h2 {
-            color: #2d6a9f;
-            border-bottom: 2px solid #2d6a9f;
-            padding-bottom: 5px;
-        }
-        h3 {
-            color: #1a3c5e;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 15px 0;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background: linear-gradient(135deg, #1a3c5e, #2d6a9f);
-            color: white;
-        }
-        .note {
-            background: #f0f8ff;
-            padding: 15px;
-            border-left: 4px solid #2d6a9f;
-            margin: 15px 0;
-        }
-    </style>
 </head>
 <body>
 
