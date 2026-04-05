@@ -57,10 +57,26 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         // Check password changed ONLY here after successful login
-        if (!$user->password_changed) {
-            return redirect()->route('password.change.form')
-                ->with('info', 'You must change your default password before continuing.');
-        }
+       // ✅ NEW — redirect to role-specific password change route
+    if (!$user->password_changed) {
+    $roleName = $user->role?->name;
+
+    $passwordRoutes = [
+        'super_admin'     => 'super_admin.password.form',
+        'religious_admin' => 'religious_admin.password.form',
+        'sub_admin'       => 'sub_admin.password.form',
+        'student'         => 'student.password.form',
+    ];
+
+    $route = $passwordRoutes[$roleName] ?? null;
+
+    if ($route && \Illuminate\Support\Facades\Route::has($route)) {
+        return redirect()->route($route)
+            ->with('info', 'You must change your default password before continuing.');
+    }
+}
+
+return redirect()->route($user->dashboardRoute());
 
         return redirect()->route($user->dashboardRoute());
     }

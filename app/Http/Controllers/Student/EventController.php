@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\EventRegistration;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -27,7 +28,6 @@ class EventController extends Controller
                        ->orderBy('start_date')
                        ->paginate(10);
 
-        // Get IDs of events this student registered for
         $registeredEventIds = EventRegistration::where('user_id', $user->id)
                                                ->pluck('event_id')
                                                ->toArray();
@@ -44,19 +44,40 @@ class EventController extends Controller
         ));
     }
 
+    // ✅ UPDATED METHOD (AJAX + NORMAL VIEW)
     public function show(Event $event)
     {
         if ($event->religion_id !== $this->getReligionId()) abort(404);
 
-        $religion   = Auth::user()->religion;
-        $user       = Auth::user();
-        $registered = EventRegistration::where('event_id', $event->id)
-                                       ->where('user_id', $user->id)
-                                       ->exists();
+        $user              = Auth::user();
+        $registered        = EventRegistration::where('event_id', $event->id)
+                                              ->where('user_id', $user->id)
+                                              ->exists();
 
         $participantsCount = EventRegistration::where('event_id', $event->id)->count();
 
-        return view('student.event_show', compact(
+        // ✅ AJAX request (for modal)
+        if (request()->expectsJson() || request()->ajax()) {
+            return response()->json([
+                'id'                 => $event->id,
+                'title'              => $event->title,
+                'description'        => $event->description,
+                'start_date_fmt'     => Carbon::parse($event->start_date)->format('d M Y, H:i'),
+                'end_date_fmt'       => Carbon::parse($event->end_date)->format('d M Y, H:i'),
+                'start_date_input'   => Carbon::parse($event->start_date)->format('Y-m-d\TH:i'),
+                'end_date_input'     => Carbon::parse($event->end_date)->format('Y-m-d\TH:i'),
+                'location'           => $event->location,
+                'max_participants'   => $event->max_participants,
+                'participants_count' => $participantsCount,
+                'status'             => $event->status,
+                'is_registered'      => $registered,
+            ]);
+        }
+
+        // ✅ Normal page view
+        $religion = Auth::user()->religion;
+
+        return view('student.events', compact(
             'event', 'religion', 'registered', 'participantsCount'
         ));
     }
@@ -67,16 +88,16 @@ class EventController extends Controller
 
         $user = Auth::user();
 
-        // Check already registered
-        if (EventRegistration::where('event_id', $event->id)->where('user_id', $user->id)->exists()) {
+        if (EventRegistration::where('event_id', $event->id)
+                              ->where('user_id', $user->id)
+                              ->exists()) {
             return redirect()->back()->with('error', 'You are already registered for this event.');
         }
 
-        // Check max participants
         if ($event->max_participants) {
             $count = EventRegistration::where('event_id', $event->id)->count();
             if ($count >= $event->max_participants) {
-                return redirect()->back()->with('error', 'This event is full. No more registrations allowed.');
+                return redirect()->back()->with('error', 'This event is full.');
             }
         }
 
@@ -87,7 +108,7 @@ class EventController extends Controller
         ]);
 
         return redirect()->back()
-            ->with('success', "You have successfully registered for <strong>{$event->title}</strong>.");
+            ->with('success', "You have successfully registered for {$event->title}.");
     }
 
     public function unregister(Event $event)
@@ -99,6 +120,6 @@ class EventController extends Controller
                          ->delete();
 
         return redirect()->back()
-            ->with('success', "You have unregistered from <strong>{$event->title}</strong>.");
+            ->with('success', "You have unregistered from {$event->title}.");
     }
 }

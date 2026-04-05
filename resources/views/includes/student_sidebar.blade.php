@@ -28,43 +28,59 @@
 
                 <li class="nav-header text-white-50">STUDENT PANEL</li>
 
-                {{-- Dashboard --}}
                 <li class="nav-item">
                     <a href="{{ route('student.dashboard') }}"
                        class="nav-link {{ request()->routeIs('student.dashboard') ? 'active' : '' }}"
-                       style="color: rgba(255,255,255,.75) !important;">
+                       style="color:rgba(255,255,255,.75) !important;">
                         <i class="nav-icon bi bi-speedometer2"></i>
                         <p class="nav-text">Dashboard</p>
                     </a>
                 </li>
 
-                {{-- Announcements --}}
                 <li class="nav-item">
                     <a href="{{ route('student.announcements.index') }}"
                        class="nav-link {{ request()->routeIs('student.announcements*') ? 'active' : '' }}"
-                       style="color: rgba(255,255,255,.75) !important;">
+                       style="color:rgba(255,255,255,.75) !important;">
                         <i class="nav-icon bi bi-megaphone"></i>
                         <p class="nav-text">Announcements</p>
                     </a>
                 </li>
 
-                {{-- Events --}}
                 <li class="nav-item">
                     <a href="{{ route('student.events.index') }}"
                        class="nav-link {{ request()->routeIs('student.events*') ? 'active' : '' }}"
-                       style="color: rgba(255,255,255,.75) !important;">
+                       style="color:rgba(255,255,255,.75) !important;">
                         <i class="nav-icon bi bi-calendar-event"></i>
                         <p class="nav-text">Events</p>
                     </a>
                 </li>
 
-                {{-- Feedback --}}
                 <li class="nav-item">
                     <a href="{{ route('student.feedback.index') }}"
                        class="nav-link {{ request()->routeIs('student.feedback*') ? 'active' : '' }}"
-                       style="color: rgba(255,255,255,.75) !important;">
+                       style="color:rgba(255,255,255,.75) !important;">
                         <i class="nav-icon bi bi-chat-left-text"></i>
                         <p class="nav-text">Feedback</p>
+                    </a>
+                </li>
+
+                <li class="nav-header text-white-50">ACCOUNT</li>
+
+                <li class="nav-item">
+                    <a href="{{ route('student.profile') }}"
+                       class="nav-link {{ request()->routeIs('student.profile') ? 'active' : '' }}"
+                       style="color:rgba(255,255,255,.75) !important;">
+                        <i class="nav-icon bi bi-person-circle"></i>
+                        <p class="nav-text">My Profile</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('student.password.form') }}"
+                       class="nav-link {{ request()->routeIs('student.password*') ? 'active' : '' }}"
+                       style="color:rgba(255,255,255,.75) !important;">
+                        <i class="nav-icon bi bi-key"></i>
+                        <p class="nav-text">Change Password</p>
                     </a>
                 </li>
 

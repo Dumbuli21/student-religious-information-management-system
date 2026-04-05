@@ -22,32 +22,28 @@ class DashboardController extends Controller
         $religionId = $religion->id;
 
         $stats = [
-            // Announcements for this student's religion
             'announcements'     => Announcement::where('religion_id', $religionId)
                                                ->where('is_published', true)
                                                ->count(),
 
-            // Total events for this religion
             'events'            => Event::where('religion_id', $religionId)->count(),
 
-            // Upcoming events
             'upcoming_events'   => Event::where('religion_id', $religionId)
                                         ->where('status', 'upcoming')
                                         ->where('start_date', '>=', now())
                                         ->count(),
 
-            // Events this student registered for
             'my_registrations'  => EventRegistration::where('user_id', $user->id)->count(),
         ];
 
-        // Recent published announcements
+        // ✅ Recent announcements
         $recent_announcements = Announcement::where('religion_id', $religionId)
                                             ->where('is_published', true)
                                             ->latest('published_at')
                                             ->take(5)
                                             ->get();
 
-        // Upcoming events
+        // ✅ Upcoming events
         $upcoming_events = Event::where('religion_id', $religionId)
                                 ->where('status', 'upcoming')
                                 ->where('start_date', '>=', now())
@@ -55,13 +51,22 @@ class DashboardController extends Controller
                                 ->take(5)
                                 ->get();
 
-        // Events the student has registered for
-        $my_events = Event::whereHas('registrations', fn($q) => $q->where('user_id', $user->id))
-                          ->where('religion_id', $religionId)
-                          ->with('registrations', fn($q) => $q->where('user_id', $user->id))
-                          ->orderBy('start_date')
-                          ->take(5)
-                          ->get();
+        // ✅ My registered events
+        $my_events = Event::whereHas('registrations', function ($q) use ($user) {
+                            $q->where('user_id', $user->id);
+                        })
+                        ->where('religion_id', $religionId)
+                        ->with(['registrations' => function ($q) use ($user) {
+                            $q->where('user_id', $user->id);
+                        }])
+                        ->orderBy('start_date')
+                        ->take(5)
+                        ->get();
+
+        // ✅ NEW: Get registered event IDs (IMPORTANT)
+        $registeredEventIds = EventRegistration::where('user_id', $user->id)
+                                                ->pluck('event_id')
+                                                ->toArray();
 
         return view('student.dashboard', compact(
             'user',
@@ -70,6 +75,7 @@ class DashboardController extends Controller
             'recent_announcements',
             'upcoming_events',
             'my_events',
+            'registeredEventIds' // ✅ added here
         ));
     }
 }

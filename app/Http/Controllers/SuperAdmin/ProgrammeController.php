@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class ProgrammeController extends Controller
 {
-    // ─── INDEX ────────────────────────────────────────────────────────────────
     public function index()
     {
         $programmes  = Programme::with('department')
@@ -22,7 +21,6 @@ class ProgrammeController extends Controller
         return view('super_admin.management.programmes', compact('programmes', 'departments'));
     }
 
-    // ─── STORE ────────────────────────────────────────────────────────────────
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -32,11 +30,10 @@ class ProgrammeController extends Controller
 
         Programme::create($validated);
 
-        return redirect()->route('super_admin.programmes.index')
+        return redirect()->route('super_admin.management.programmes.index')
             ->with('success', "Programme <strong>{$validated['name']}</strong> created successfully.");
     }
 
-    // ─── SHOW (JSON for modal) ────────────────────────────────────────────────
     public function show(Programme $programme)
     {
         $programme->load('department')->loadCount('users');
@@ -52,7 +49,6 @@ class ProgrammeController extends Controller
         ]);
     }
 
-    // ─── UPDATE ───────────────────────────────────────────────────────────────
     public function update(Request $request, Programme $programme)
     {
         $validated = $request->validate([
@@ -62,22 +58,21 @@ class ProgrammeController extends Controller
 
         $programme->update($validated);
 
-        return redirect()->route('super_admin.programmes.index')
+        return redirect()->route('super_admin.management.programmes.index')
             ->with('success', "Programme <strong>{$programme->name}</strong> updated successfully.");
     }
 
-    // ─── DESTROY ──────────────────────────────────────────────────────────────
     public function destroy(Programme $programme)
     {
         if ($programme->users()->count() > 0) {
-            return redirect()->route('super_admin.programmes.index')
+            return redirect()->route('super_admin.management.programmes.index')
                 ->with('error', "Cannot delete <strong>{$programme->name}</strong> — it has assigned users.");
         }
 
         $name = $programme->name;
         $programme->delete();
 
-        return redirect()->route('super_admin.programmes.index')
+        return redirect()->route('super_admin.management.programmes.index')
             ->with('success', "Programme <strong>{$name}</strong> deleted successfully.");
     }
 }

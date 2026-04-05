@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-    // ─── INDEX ────────────────────────────────────────────────────────────────
     public function index()
     {
         $departments = Department::withCount(['programmes', 'users'])
@@ -18,7 +17,6 @@ class DepartmentController extends Controller
         return view('super_admin.management.department', compact('departments'));
     }
 
-    // ─── STORE ────────────────────────────────────────────────────────────────
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -27,11 +25,10 @@ class DepartmentController extends Controller
 
         Department::create($validated);
 
-        return redirect()->route('super_admin.departments.index')
+        return redirect()->route('super_admin.management.departments.index')
             ->with('success', "Department <strong>{$validated['name']}</strong> created successfully.");
     }
 
-    // ─── SHOW (JSON for modal) ────────────────────────────────────────────────
     public function show(Department $department)
     {
         $department->loadCount(['programmes', 'users']);
@@ -46,7 +43,6 @@ class DepartmentController extends Controller
         ]);
     }
 
-    // ─── UPDATE ───────────────────────────────────────────────────────────────
     public function update(Request $request, Department $department)
     {
         $validated = $request->validate([
@@ -55,22 +51,21 @@ class DepartmentController extends Controller
 
         $department->update($validated);
 
-        return redirect()->route('super_admin.departments.index')
+        return redirect()->route('super_admin.management.departments.index')
             ->with('success', "Department <strong>{$department->name}</strong> updated successfully.");
     }
 
-    // ─── DESTROY ──────────────────────────────────────────────────────────────
     public function destroy(Department $department)
     {
         if ($department->users()->count() > 0) {
-            return redirect()->route('super_admin.departments.index')
+            return redirect()->route('super_admin.management.departments.index')
                 ->with('error', "Cannot delete <strong>{$department->name}</strong> — it has assigned users.");
         }
 
         $name = $department->name;
         $department->delete();
 
-        return redirect()->route('super_admin.departments.index')
+        return redirect()->route('super_admin.management.departments.index')
             ->with('success', "Department <strong>{$name}</strong> deleted successfully.");
     }
 }

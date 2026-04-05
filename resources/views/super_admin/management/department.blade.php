@@ -341,73 +341,7 @@
     <!-- ============================================
          SIDEBAR NAVIGATION - SAME AS USERS PAGE
     ============================================ -->
-    <aside class="app-sidebar shadow" style="background: linear-gradient(180deg, #1a3c5e 0%, #2d6a9f 100%);" data-bs-theme="dark">
-        <div class="sidebar-brand">
-            <a href="#" class="brand-link d-flex align-items-center gap-2 py-3 px-3 text-white text-decoration-none">
-                <i class="bi bi-shield-fill-check fs-4"></i>
-                <div class="brand-text-wrapper">
-                    <span class="brand-text fw-light fs-5">SRIMS</span>
-                </div>
-            </a>
-        </div>
-        <div class="sidebar-wrapper">
-            <nav class="mt-2">
-                <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation" data-accordion="false">
-                    <li class="nav-header text-white-50">SUPER ADMIN</li>
-                    <li class="nav-item">
-                        <a href="{{ route('super_admin.dashboard') }}" class="nav-link text-white-75">
-                            <i class="nav-icon bi bi-speedometer2"></i>
-                            <p class="nav-text">Dashboard</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('super_admin.users.index') }}" class="nav-link text-white-75">
-                            <i class="nav-icon bi bi-people"></i>
-                            <p class="nav-text">Users</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('super_admin.religions.index') }}" class="nav-link text-white-75">
-                            <i class="nav-icon bi bi-globe2"></i>
-                            <p class="nav-text">Religions</p>
-                        </a>
-                    </li>
-                    <li class="nav-item has-treeview active">
-                        <a href="#" class="nav-link text-white-75">
-                            <i class="nav-icon bi bi-box-seam-fill"></i>
-                            <p class="nav-text">Management <i class="nav-arrow bi bi-chevron-right"></i></p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('super_admin.departments.index') }}" class="nav-link text-white-75 active">
-                                    <i class="nav-icon bi bi-building"></i>
-                                    <p class="nav-text">Department</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('super_admin.programmes.index') }}" class="nav-link text-white-75">
-                                   <i class="nav-icon bi bi-journal-bookmark-fill"></i>
-                                    <p class="nav-text">Programme</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-white-75">
-                            <i class="nav-icon bi bi-graph-up"></i>
-                            <p class="nav-text">Reports</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-white-75">
-                            <i class="nav-icon bi bi-clock-history"></i>
-                            <p class="nav-text">Activity Logs</p>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </aside>
+    @include('includes.super_admin_sidebar')
     
     <!-- ============================================
          MAIN CONTENT
@@ -617,7 +551,8 @@
                 </h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form method="POST" action="{{ route('super_admin.departments.store') }}">
+            {{-- ✅ NEW --}}
+                <form method="POST" action="{{ route('super_admin.management.departments.store') }}">       
                 @csrf
                 <div class="modal-body">
                     <label class="form-label">
@@ -727,10 +662,11 @@
 
 <script>
 const csrfToken = '{{ csrf_token() }}';
+// ✅ NEW
 const routes = {
-    show: '{{ route('super_admin.departments.show', '__ID__') }}',
-    update: '{{ route('super_admin.departments.update', '__ID__') }}',
-    destroy: '{{ route('super_admin.departments.destroy', '__ID__') }}',
+    show:    '{{ route('super_admin.management.departments.show',   '__ID__') }}',
+    update:  '{{ route('super_admin.management.departments.update', '__ID__') }}',
+    destroy: '{{ route('super_admin.management.departments.destroy','__ID__') }}',
 };
 
 function routeFor(name, id) {
