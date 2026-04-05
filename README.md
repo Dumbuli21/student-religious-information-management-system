@@ -9,7 +9,10 @@
 
 ## About SRIMS
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The Student Religious Information System (SRIS) is a web-based application designed to manage religious-related information for students within a university or college environment. The system
+provides a centralized platform where different religious groups can operate independently within a single system.
+Each religion can manage its own students, announcements, and events without interfering with other religions. The system promotes inclusivity, organization, and effective communication
+among students and religious organizations within the institution.
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
 - [Powerful dependency injection container](https://laravel.com/docs/container).
