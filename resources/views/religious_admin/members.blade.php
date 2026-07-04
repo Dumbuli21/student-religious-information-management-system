@@ -399,7 +399,6 @@
                             <label class="form-label fw-semibold small">Login Behaviour <span class="text-danger">*</span></label>
                             <select name="password_changed" class="form-select">
                                 <option value="0" {{ old('password_changed','0') == '0' ? 'selected':'' }}>Force change password on first login</option>
-                                <option value="1" {{ old('password_changed') == '1' ? 'selected':'' }}>Go directly to dashboard</option>
                             </select>
                         </div>
                     </div>
