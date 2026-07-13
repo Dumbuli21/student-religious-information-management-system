@@ -92,7 +92,7 @@
                             name="student_number"
                             class="form-control @error('student_number') is-invalid @enderror"
                             value="{{ old('student_number') }}"
-                            placeholder="e.g. BT12"
+                            placeholder="e.g. 25100533350048"
                             autofocus
                             autocomplete="username"
                         >
